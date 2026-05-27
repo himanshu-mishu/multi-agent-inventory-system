@@ -1,94 +1,110 @@
-# Munder Difflin Multi-Agent System Project
+# 🤖 Multi-Agent Inventory System
 
-Welcome to the starter code repository for the **Munder Difflin Paper Company Multi-Agent System Project**! This repository contains the starter code and tools you will need to design, build, and test a multi-agent system that supports core business operations at a fictional paper manufacturing company.
-
-## Project Context
-
-You’ve been hired as an AI consultant by Munder Difflin Paper Company, a fictional enterprise looking to modernize their workflows. They need a smart, modular **multi-agent system** to automate:
-
-- **Inventory checks** and restocking decisions
-- **Quote generation** for incoming sales inquiries
-- **Order fulfillment** including supplier logistics and transactions
-
-Your solution must use a maximum of **5 agents** and process inputs and outputs entirely via **text-based communication**.
-
-This project challenges your ability to orchestrate agents using modern Python frameworks like `smolagents`, `pydantic-ai`, or `npcsh`, and combine that with real data tools like `sqlite3`, `pandas`, and LLM prompt engineering.
+An AI-powered inventory management system where multiple autonomous agents collaborate to handle stock monitoring, pricing, and order management — built for **Munder Difflin** paper supplies.
 
 ---
 
-## What’s Included
+## 🧠 How It Works
 
-From the `project.zip` starter archive, you will find:
+Instead of one monolithic service, this system uses **specialized AI agents**, each with a single responsibility:
 
-- `project_starter.py`: The main Python script you will modify to implement your agent system
-- `quotes.csv`: Historical quote data used for reference by quoting agents
-- `quote_requests.csv`: Incoming customer requests used to build quoting logic
-- `quote_requests_sample.csv`: A set of simulated test cases to evaluate your system
+| Agent | Role |
+|---|---|
+| `inventory_agent` | Checks stock levels and availability |
+| `quoting_agent` | Calculates pricing, markups, and discounts |
 
----
-
-## Workspace Instructions
-
-All the files have been provided in the VS Code workspace on the Udacity platform. Please install the agent orchestration framework of your choice.
-
-## Local setup instructions
-
-1. Install dependencies
-
-Make sure you have Python 3.8+ installed.
-
-You can install all required packages using the provided requirements.txt file:
-
-`pip install -r requirements.txt`
-
-If you're using smolagents, install it separately:
-
-`pip install smolagents`
-
-For other options like pydantic-ai or npcsh[lite], refer to their documentation.
-
-2. Create .env File
-
-Add your OpenAI-compatible API key:
-
-`UDACITY_OPENAI_API_KEY=your_openai_key_here`
-
-This project uses a custom OpenAI-compatible proxy hosted at https://openai.vocareum.com/v1.
-
-## How to Run the Project
-
-Start by defining your agents in the `"YOUR MULTI AGENT STARTS HERE"` section inside `template.py`. Once your agent team is ready:
-
-1. Run the `run_test_scenarios()` function at the bottom of the script.
-2. This will simulate a series of customer requests.
-3. Your system should respond by coordinating inventory checks, generating quotes, and processing orders.
-
-Output will include:
-
-- Agent responses
-- Cash and inventory updates
-- Final financial report
-- A `test_results.csv` file with all interaction logs
+Agents are powered by **GPT-4o-mini** via the OpenAI API and orchestrated using **smolagents**.
 
 ---
 
-## Tips for Success
+## ⚙️ Tech Stack
 
-- Start by sketching a **flow diagram** to visualize agent responsibilities and interactions.
-- Test individual agent tools before full orchestration.
-- Always include **dates** in customer requests when passing data between agents.
-- Ensure every quote includes **bulk discounts** and uses past data when available.
-- Use the **exact item names** from the database to avoid transaction failures.
+- **Python 3.11+**
+- **smolagents** — multi-agent orchestration
+- **OpenAI API** — GPT-4o-mini for agent reasoning
+- **SQLAlchemy** — database ORM
+- **SQLite** — local inventory database
+- **Pandas / NumPy** — data processing
+- **python-dotenv** — environment variable management
+
+---
+
+## 📁 Project Structure
+
+```
+multi-agent-inventory-system/
+├── app.py               # Main entry point
+├── requirements.txt     # Project dependencies
+├── .env                 # API keys (not committed)
+├── .gitignore
+└── README.md
+```
 
 ---
 
-## Submission Checklist
+## 🚀 Getting Started
 
-Make sure to submit the following files:
+### 1. Clone the repo
+```bash
+git clone https://github.com/himanshu-mishu/multi-agent-inventory-system.git
+cd multi-agent-inventory-system
+```
 
-1. Your completed `template.py` or `project_starter.py` with all agent logic
-2. A **workflow diagram** describing your agent architecture and data flow
-3. A `README.txt` or `design_notes.txt` explaining how your system works
-4. Outputs from your test run (like `test_results.csv`)
+### 2. Create and activate virtual environment
+```bash
+python3.11 -m venv venv
+source venv/bin/activate        # Mac/Linux
+venv\Scripts\activate           # Windows
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+pip install smolagents
+```
+
+### 4. Set up environment variables
+Create a `.env` file in the root directory:
+```
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### 5. Run the app
+```bash
+python3 app.py
+```
 
 ---
+
+## 📦 Example Output
+
+```
+Request: Check inventory for Glossy paper and generate a quote for 200 units
+
+inventory_agent  →  Current Stock: 587 units | Status: Available
+quoting_agent    →  Unit Price: $0.20 | Final Quote: $54.00 | Delivery: 3-5 days
+```
+
+---
+
+## 💡 Key Concepts
+
+- **Multi-agent architecture** — decoupled agents, each does one job
+- **Autonomous decision-making** — agents reason and act without human input
+- **Tool use** — agents call custom tools (`check_stock_tool`, `calculate_quote_tool`)
+- **Real-time inventory** — stock levels fetched live from SQLite database
+
+---
+
+## 📋 Requirements
+
+- Python 3.10+
+- OpenAI API key
+- Mac / Linux / Windows
+
+---
+
+## 👨‍💻 Author
+
+**Himanshu Kumar**  
+[github.com/himanshu-mishu](https://github.com/himanshu-mishu)
