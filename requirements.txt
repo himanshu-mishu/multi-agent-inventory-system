@@ -6,3 +6,4 @@ flask
 flask-cors
 gunicorn
 sqlalchemy
+smolagents==1.25.0
